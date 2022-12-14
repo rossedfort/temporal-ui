@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  if: ${{ !startsWith(github.ref_name , 'releases/') }}
+  if: !startsWith(github.ref_name , 'releases/')
   build:
     runs-on: ubuntu-latest
     steps:
