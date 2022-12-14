@@ -3,7 +3,7 @@ name: Publish NPM Package
 on:
   pull_request:
     branches:
-      - 'releases/**'
+      - main
 
 jobs:
   debug:
@@ -12,7 +12,7 @@ jobs:
       - name: debug
         run: echo '${{ toJSON(github) }}'
   publish:
-    if: github.event.action == 'closed' && github.event.pull_request.merged == true
+    if: startsWith(github.ref_name, 'releases/') && github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
