@@ -2,13 +2,12 @@ name: Snapshot Tests
 
 on:
   push:
-    branches:
-      - main
-      - '!releases/**'
+    branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
+  if: ${{ !startsWith(github.ref_name , 'releases/') }}
   snapshot-tests:
     runs-on: ubuntu-latest
     steps:

@@ -2,13 +2,12 @@ name: Unit Tests
 
 on:
   push:
-    branches:
-      - main
-      - '!releases/**'
+    branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
+  if: ${{ !startsWith(github.ref_name , 'releases/') }}
   build:
     runs-on: ubuntu-latest
     steps:
