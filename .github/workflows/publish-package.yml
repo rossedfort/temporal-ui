@@ -3,7 +3,7 @@ name: Publish NPM Package
 on:
   pull_request:
     branches:
-      - release\/**
+      - 'releases/**'
     types: [closed]
 
 jobs:
