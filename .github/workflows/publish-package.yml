@@ -5,6 +5,11 @@ on:
     types: [closed, labeled]
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: debug
+        run: echo '${{ toJSON(github) }}'
   publish:
     if: github.event.label.name == 'release' && github.event.pull_request.merged == true
     runs-on: ubuntu-latest
