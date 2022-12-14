@@ -6,6 +6,13 @@ on:
       - main
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: debug
+        run: |
+          echo ${{ github.event.pull_request.base.ref }}
+          more $GITHUB_EVENT_PATH
   publish:
     if: startsWith(github.ref_name, 'releases\/v')
     runs-on: ubuntu-latest
