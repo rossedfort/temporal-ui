@@ -1,9 +1,10 @@
 name: Publish NPM Package
 
 on:
-  push:
+  pull_request:
     branches:
-      - main
+      - release\/**
+    types: [closed]
 
 jobs:
   debug:
@@ -12,7 +13,7 @@ jobs:
       - name: debug
         run: echo '${{ toJSON(github) }}'
   publish:
-    if: startsWith(github.ref_name, 'releases\/v')
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,6 +43,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Create Release
-        run: ./.github/scripts/create-release.sh
+        run: |
+          git fetch --tags
+          tag=`git describe --abbrev=0 --tags`
+          gh release create $tag --generate-notes
         env:
           GH_TOKEN: ${{ secrets.TEMPORAL_UI_TOKEN }}
