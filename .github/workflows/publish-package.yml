@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish:
-    if: startsWith(github.ref_name, 'releases/')
+    if: startsWith(github.ref_name, 'releases\/v')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,7 +32,6 @@ jobs:
         working-directory: ./package
   create_release:
     needs: publish
-    if: startsWith(github.ref_name, 'releases/')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
