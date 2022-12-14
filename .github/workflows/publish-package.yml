@@ -20,7 +20,7 @@ jobs:
         run: |
           git fetch --tags
           tag=`git describe --abbrev=0 --tags`
-          git checkout ${{ tag }}
+          git checkout $tag
       - name: Install dependencies
         run: pnpm install
       - name: Build Package
