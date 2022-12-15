@@ -18,7 +18,7 @@ jobs:
       - name: Checkout Release Tag
         run: |
           git fetch --tags
-          tag=`git describe --abbrev=0 --tags`
+          tag=`git describe --always --abbrev=0 --tags`
           git checkout $tag
       - name: Install dependencies
         run: pnpm install
@@ -38,7 +38,7 @@ jobs:
       - name: Create Release
         run: |
           git fetch --tags
-          tag=`git describe --abbrev=0 --tags`
+          tag=`git describe --always --abbrev=0 --tags`
           gh release create $tag --generate-notes
         env:
           GH_TOKEN: ${{ secrets.TEMPORAL_UI_TOKEN }}
