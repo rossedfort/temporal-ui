@@ -11,7 +11,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Setup PNPM
         uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
@@ -25,10 +29,10 @@ jobs:
       - name: Build Package
         run: pnpm package
       - name: Publish package to NPM
-        run: npm publish --access public
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish
         working-directory: ./package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
   create_release:
     needs: publish
     runs-on: ubuntu-latest
