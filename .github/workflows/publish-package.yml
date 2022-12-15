@@ -23,6 +23,7 @@ jobs:
         run: |
           git fetch --tags
           tag=`git describe --always --abbrev=0 --tags`
+          echo 'latest tag: ${{ tag }}'
           git checkout $tag
       - name: Install dependencies
         run: pnpm install
@@ -43,7 +44,7 @@ jobs:
         run: |
           git fetch --tags
           tag=`git describe --always --abbrev=0 --tags`
-          echo 'tag $tag'
+          echo 'latest tag: ${{ tag }}'
           gh release create $tag --generate-notes
         env:
           GH_TOKEN: ${{ secrets.TEMPORAL_UI_TOKEN }}
