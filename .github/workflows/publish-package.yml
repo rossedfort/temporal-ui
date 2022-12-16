@@ -40,6 +40,6 @@ jobs:
           echo "latest version: $version"
           tag="v$tag"
           echo "creating release: $tag"
-          gh release create "v$tag" --generate-notes
+          gh release create $tag --generate-notes
         env:
           GH_TOKEN: ${{ secrets.TEMPORAL_UI_TOKEN }}
