@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: main
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
@@ -23,8 +23,7 @@ jobs:
           version: 7
       - name: Checkout Release Tag
         run: |
-          git fetch --tags
-          tag=`git describe --always --abbrev=0 --tags`
+          tag=`git describe --abbrev=0 --tags`
           echo "latest tag: $tag"
           git checkout $tag
       - name: Install dependencies
@@ -43,11 +42,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: main
+          fetch-depth: 0
       - name: Create Release
         run: |
           git fetch --tags
-          tag=`git describe --always --abbrev=0 --tags`
+          tag=`git describe --abbrev=0 --tags`
           echo "latest tag: $tag"
           gh release create $tag --generate-notes
         env:
