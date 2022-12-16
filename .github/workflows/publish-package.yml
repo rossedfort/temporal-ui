@@ -38,7 +38,7 @@ jobs:
         run: |
           version=`cat ./package.json | jq -r .version`
           echo "latest version: $version"
-          tag="v$tag"
+          tag="v$version"
           echo "creating release: $tag"
           gh release create $tag --generate-notes
         env:
